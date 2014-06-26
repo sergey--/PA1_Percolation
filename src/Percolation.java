@@ -1,12 +1,15 @@
-
 public class Percolation {
+	
+	public enum State {
+		BLOCKED, OPEN, FULL
+	}
 	//blocks are blocked = -1, open = 0, full = 1
-	private int grid[][];
+	private State grid[][];
 	public Percolation(int N){
-		grid = new int[N][N];
+		grid = new State[N][N];
 		for (int i = 0; i < N; i++){
 			for (int j = 0; j < N; j++){
-				grid[i][j] = -1;
+				grid[i][j] = State.BLOCKED;
 			}
 		}
 	};
@@ -14,19 +17,19 @@ public class Percolation {
 	public void open(int i, int j){
 		if (i < 1 || i > grid.length || j < 1 || j > grid.length) 
             throw new IndexOutOfBoundsException("Illegal subarray range");
-		grid[i-1][j-1] = 0;
+		grid[i-1][j-1] = State.OPEN;
 	}
 	
 	public void fill(int i, int j){
 		if (i < 1 || i > grid.length || j < 1 || j > grid.length) 
             throw new IndexOutOfBoundsException("Illegal subarray range");
-		grid[i-1][j-1] = 1;
+		grid[i-1][j-1] = State.FULL;
 	}
 	
 	public boolean isOpen(int i, int j){
 		if (i < 1 || i > grid.length || j < 1 || j > grid.length) 
             throw new IndexOutOfBoundsException("Illegal subarray range");
-		return grid[i-1][j-1] == 0;
+		return grid[i-1][j-1] == State.OPEN;
 	}
 	
 	public boolean isFull(int i, int j){
@@ -76,13 +79,19 @@ public class Percolation {
 	public static void main(String[] args) {
 		int N = Integer.parseInt(args[0]);
 		Percolation a = new Percolation(N);
-		for (int i = 0; i < N; i++){
-			for(int j = 0; j < N; j++){
-				a.grid[i][j] = StdRandom.uniform(2);
-				StdOut.printf(" %d", a.grid[i][j]);
+		int i = j = 0;
+		while(!StdIn.isEmpty()){
+			switch(StdIn.readChar()){
+			case '.': 
 			}
-			StdOut.println();
 		}
+//		for (int i = 0; i < N; i++){
+//			for(int j = 0; j < N; j++){
+//				a.grid[i][j] = State(StdRandom.uniform(2));
+//				StdOut.printf(" %d", a.grid[i][j]);
+//			}
+//			StdOut.println();
+//		}
 		////////////////////////
 		StdOut.println(a.percolates());
 		
